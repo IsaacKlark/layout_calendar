@@ -1,3 +1,13 @@
+@keyframes moveup {
+  from {
+    transform: translateY(0);
+  }
+
+  to {
+    transform: translateY(-20px);
+  }
+}
+
 $gray: #eee;
 $pix: 100px;
 $marg: 1px;
@@ -50,6 +60,9 @@ body {
   div:hover {
     cursor: pointer;
     background-color: pink;
+    animation-name: moveup;
+    animation-duration: 0.5s;
+    animation-fill-mode: forwards;
   }
 }
 
