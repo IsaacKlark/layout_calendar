@@ -1,3 +1,90 @@
+$gray: #eee;
+$pix: 100px;
+$marg: 1px;
+$bord: 1px solid black;
+
+@mixin div-content {
+  background-color: $gray;
+  width: $pix;
+  height: $pix;
+  border: $bord;
+  display: flex;
+  box-sizing: border-box;
+  margin-top: $marg;
+  margin-right: $marg;
+}
+
+@mixin week($num) {
+  margin-left: $pix*$num + $marg*$num;
+}
+
 body {
   margin: 0;
+}
+
+@for $i from 1 through 31 {
+  .calendar > div:nth-child(#{$i})::after {
+    content: "#{$i}";
+    font-size: 30px;
+    font-family: Arial, sans-serif;
+    align-self: center;
+    margin: 0 auto;
+  }
+}
+
+.calendar {
+  position: relative;
+  margin-left: auto;
+  margin-right: auto;
+  display: flex;
+  flex-wrap: wrap;
+  flex-direction: row;
+  width: $pix * 7 + $marg * 7;
+  justify-content: flex-start;
+  box-sizing: border-box;
+
+  div {
+    @include div-content;
+  }
+
+  div:hover {
+    cursor: pointer;
+    background-color: pink;
+  }
+}
+
+.calendar-28 > :nth-child(28) ~ div {
+  display: none;
+}
+
+.calendar-29 > :nth-child(29) ~ div {
+  display: none;
+}
+
+.calendar-30 > :nth-child(30) + div {
+  display: none;
+}
+
+.calendar-mon > :nth-child(1) {
+  @include week(1);
+}
+
+.calendar-tue > :nth-child(1) {
+  @include week(2);
+}
+
+.calendar-wed > :nth-child(1) {
+  @include week(3);
+}
+
+.calendar-thu > :nth-child(1) {
+  @include week(4);
+}
+
+.calendar-fri > :nth-child(1) {
+  @include week(5);
+}
+
+.calendar-sat > :nth-child(1) {
+  @include week(6);
 }
