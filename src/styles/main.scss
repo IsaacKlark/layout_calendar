@@ -1,3 +1,6 @@
+$week-days: sun 0, mon 1, tue 2, wed 3, thu 4, fri 5, sat 6;
+$month-days: 28, 29, 30, 31;
+
 @keyframes moveup {
   from {
     transform: translateY(0);
@@ -8,24 +11,24 @@
   }
 }
 
-$gray: #eee;
-$pix: 100px;
-$marg: 1px;
-$bord: 1px solid black;
+$date-color: #eee;
+$date-size: 100px;
+$date-space: 1px;
+$border: 1px solid black;
 
 @mixin div-content {
-  background-color: $gray;
-  width: $pix;
-  height: $pix;
-  border: $bord;
+  background-color: $date-color;
+  width: $date-size;
+  height: $date-size;
+  border: $border;
   display: flex;
   box-sizing: border-box;
-  margin-top: $marg;
-  margin-right: $marg;
+  margin-top: $date-space;
+  margin-right: $date-space;
 }
 
 @mixin week($num) {
-  margin-left: $pix*$num + $marg*$num;
+  margin-left: $date-size*$num + $date-space*$num;
 }
 
 body {
@@ -49,7 +52,7 @@ body {
   display: flex;
   flex-wrap: wrap;
   flex-direction: row;
-  width: $pix * 7 + $marg * 7;
+  width: $date-size * 7 + $date-space * 7;
   justify-content: flex-start;
   box-sizing: border-box;
 
@@ -66,38 +69,14 @@ body {
   }
 }
 
-.calendar-28 > :nth-child(28) ~ div {
-  display: none;
+@each $day-of-month in $month-days {
+  .calendar-#{$day-of-month} > :nth-child(#{$day-of-month}) ~ div {
+    display: none;
+  }
 }
 
-.calendar-29 > :nth-child(29) ~ div {
-  display: none;
-}
-
-.calendar-30 > :nth-child(30) + div {
-  display: none;
-}
-
-.calendar-mon > :nth-child(1) {
-  @include week(1);
-}
-
-.calendar-tue > :nth-child(1) {
-  @include week(2);
-}
-
-.calendar-wed > :nth-child(1) {
-  @include week(3);
-}
-
-.calendar-thu > :nth-child(1) {
-  @include week(4);
-}
-
-.calendar-fri > :nth-child(1) {
-  @include week(5);
-}
-
-.calendar-sat > :nth-child(1) {
-  @include week(6);
+@each $day-of-week, $numb-of-days in $week-days {
+  .calendar-#{$day-of-week} > :nth-child(1) {
+    @include week($numb-of-days);
+  }
 }
